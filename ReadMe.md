@@ -173,9 +173,93 @@ public abstract class LampBaseState : State<LampStates, LampContext>, ILampContr
 }
 ```
 Notice that the blink delay is not stored within the state but in the context.
-In general you should never store any data within a state.
+In general you should never store any data within a state. 
+With the base state we can now define the states themselves.
+```cs
+public class LampStateOff : LampBaseState
+{
+    public override LampStates Key => LampStates.Off;
 
-_For more examples, please refer to the [Documentation](https://example.com)_
+    protected override void OnEntry(LampStates from)
+    {
+        if (Context.IsBlinking)
+        {
+            CallTimer("Timer Blink Off", Context.BlinkDelayInMS, () => GoTo(LampStates.On));
+        }
+    }
+    public override void Blink()
+    {
+        Context.IsBlinking = true;
+        GoTo(LampStates.On);
+    }
+    public override void TurnOff()
+    {
+        Context.IsBlinking = false;
+        GoTo(LampStates.Off);
+    }
+    public override void TurnOn()
+    {
+        Context.IsBlinking = false;
+        GoTo(LampStates.On);
+    }
+}
+```
+and
+```cs
+public class LampStateOn : LampBaseState
+{
+    public override LampStates Key => LampStates.On;
+
+    protected override void OnEntry(LampStates from)
+    {
+        if (Context.IsBlinking) 
+        {
+            CallTimer("Timer Blink On", Context.BlinkDelayInMS, () => GoTo(LampStates.Off));
+        }
+    }
+    public override void Blink()
+    {
+        Context.IsBlinking= true;
+        GoTo(LampStates.Off);
+    }
+    public override void TurnOff()
+    {
+        Context.IsBlinking = false;
+        GoTo(LampStates.Off);
+    }
+    public override void TurnOn()
+    {
+        Context.IsBlinking = false;
+        GoTo(LampStates.On);
+    }   
+}
+```
+There are several things to notice here:
+* The Key property: every state has a unique key that is used in the GoTo(...) method.
+* The OnEntry() override: The state machine always calls OnEntry before entering a new state. 
+  This is the place where you can perform initialization of the state.
+  In this case we use it to start a timer for the blinking.
+* The GoTo(..) method is used to jump to a state. If GoTo has been called, 
+  the state machine will exit the current state and enter the new state **after** the trigger has finished. 
+  Upon the exit of a state, any running calls are cancelled.
+  This happens also if the destination is the same as the current state. 
+  In this sample this is used to cancel the blink timer started in the entry.
+* The CallTimer(...) method: You should not await any task inside a trigger, instead use the Call() methods to do any asyn operation.
+  Because the timer is a very common operation, it has a special call which is used here.
+
+Now we have defined all elements of the statemachine, we can create and start the sate machine itself:
+```cs
+using TIM.Tracing;
+...
+Machine<ILampControl, LampStates, LampContext> machine = new ("Lamp",  new LampStateOn(), new LampStateOff());
+machine.Options.SetTraceHandler((x) => Debug.WriteLine(x.ToString()));
+ILampControl LampControl = machine.Run(LampStates.Off, new LampContext());
+```
+By added the using 'TIM.Tracing'you can activate tracing on the state machine by setting a trace handler.
+In the Machine constructor you give the machine a name, which is used in the traces, and you specify the states of this state machine.
+By calling Run() you start the statemachine in the specified state with the given context.
+
+_For the code of this example and more, please refer to the [Samples](https://github.com/JulesVerhoeven/TIM/tree/main/Samples)_
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
