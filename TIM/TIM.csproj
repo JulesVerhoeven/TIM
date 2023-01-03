@@ -6,10 +6,15 @@
     <Title>The Interface Machine</Title>
     <Authors>Jules Verhoeven</Authors>
     <Description>A state machine that uses a proxy interface for triggering.</Description>
-    <PackageTags>C#, State, Machine, State Machine, StateMachine, Proxy, Proxy interface</PackageTags>
+    <PackageTags>C#, State, Machine, StateMachine, Proxy, Interface, ProxyInterface</PackageTags>
     <RepositoryType>git</RepositoryType>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
 	<Version>2.0.0</Version>
+	<PackageProjectUrl>https://github.com/JulesVerhoeven/TIM</PackageProjectUrl>
+	<PackageReadmeFile>ReadMe.md</PackageReadmeFile>
+	<PackageLicenseFile>License.txt</PackageLicenseFile>
+	<RepositoryUrl>https://github.com/JulesVerhoeven/TIM/tree/main/TIM</RepositoryUrl>
+	<Copyright></Copyright>
   </PropertyGroup>
 
   <ItemGroup>
@@ -19,6 +24,17 @@
     <EmbeddedResource Remove="SubMachines\**" />
     <None Remove="Properties\**" />
     <None Remove="SubMachines\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\ReadMe.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+	<None Include="..\License.txt">
+		<Pack>True</Pack>
+		<PackagePath>\</PackagePath>
+	</None>
   </ItemGroup>
 
 </Project>

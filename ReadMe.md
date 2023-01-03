@@ -261,6 +261,22 @@ By calling Run() you start the statemachine in the specified state with the give
 
 _For the code of this example and more, please refer to the [Samples](https://github.com/JulesVerhoeven/TIM/tree/main/Samples)_
 
+#### Implementation guidelines
+* The state machine should _always_ be response. 
+  This means that you should not perform any lengthy calculations, waits or sleeps within the trigger implementations. Instead, create a task and use Call(...) to handle it.
+* Do not access the context outside of the states. TIM makes sure that all calls to the states are synchronized. 
+  If you acces the context from outside the statemachine you are likely to get concurrency issues.
+* Take care that all callbacks, actions, functions, events, invokes etc. are executed asynchronously from the state machine. 
+  If the trigger interface gets called synchronously from inside any of these you will either get an exception or a deadlock! 
+  For an example of an event implementation, see the Elevator sample.
+* Do not use asyn/await in the trigger implementation, this will lead to some unexpected results. Instead, use the Call() method.
+* Normally, you would define an enum as key for the states. But, if you expect that the statemachine will get extended elsewhere, use strings.
+  You can define the strings used in the statemachine as constants.
+* TIM does not explicitely support sub-statemachines, but you can easily create them by storing the keys of the state(s) you want to return to in the context.
+  You then return to this state from inside a trigger with a GoTo() to key in the context. 
+  There is an example of this in the Elevator sample. (When Jamming the elevator.)
+
+
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 

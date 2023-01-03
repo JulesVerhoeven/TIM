@@ -7,9 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Reference Include="TIM">
-      <HintPath>..\..\TIM\bin\Debug\net6.0\TIM.dll</HintPath>
-    </Reference>
+    <PackageReference Include="TIM" Version="2.0.0" />
   </ItemGroup>
 
 </Project>
