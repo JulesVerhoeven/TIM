@@ -1,0 +1,44 @@
+﻿<Window xmlns:View="clr-namespace:ElevatorSample.View"  x:Class="Elevator.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Elevator"
+        mc:Ignorable="d"
+        Title="Elevator sample" Height="550" Width="800">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Label Grid.Row="0" Grid.Column="0" Content="Building" FontSize="20" HorizontalAlignment="Center"/>
+        <Label Grid.Row="0" Grid.Column="1" Content="Elevator" FontSize="20" HorizontalAlignment="Center"/>
+        <ListView Grid.Row ="1" Grid.Column="0" ItemsSource="{Binding Floors}" Height="Auto" VerticalAlignment="Center">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                  <View:FloorView />
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListView>
+        <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Vertical" Margin="5" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <ListView ItemsSource="{Binding ElevatorButtons}" HorizontalAlignment="Center">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <View:NumberedButton/>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListView>
+            <StackPanel Orientation="Horizontal" Margin="5" HorizontalAlignment="Center">
+                <Button  Content="Open" Width ="40" Height="20" Command="{Binding OpenCmd}" Margin="2"/>
+                <Button  Content="Close" Width ="40" Height="20" Command="{Binding CloseCmd}" Margin="2"/>
+            </StackPanel>
+        </StackPanel>
+
+        <Button Grid.Row="2" Grid.ColumnSpan="2" Content="Jam elevator" Width ="100" Height="20" Command="{Binding JamElevatorCmd}" Margin="2"/>
+    </Grid>
+</Window>

@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Reference Include="TIM">
+      <HintPath>..\..\TIM\bin\Debug\net6.0\TIM.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>

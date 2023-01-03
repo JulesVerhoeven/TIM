@@ -1,0 +1,24 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <Title>The Interface Machine</Title>
+    <Authors>Jules Verhoeven</Authors>
+    <Description>A state machine that uses a proxy interface for triggering.</Description>
+    <PackageTags>C#, State, Machine, State Machine, StateMachine, Proxy, Proxy interface</PackageTags>
+    <RepositoryType>git</RepositoryType>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
+	<Version>2.0.0</Version>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Properties\**" />
+    <Compile Remove="SubMachines\**" />
+    <EmbeddedResource Remove="Properties\**" />
+    <EmbeddedResource Remove="SubMachines\**" />
+    <None Remove="Properties\**" />
+    <None Remove="SubMachines\**" />
+  </ItemGroup>
+
+</Project>
