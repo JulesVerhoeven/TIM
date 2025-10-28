@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFrameworks>net6.0;net8.0;net9.0</TargetFrameworks>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <Title>The Interface Machine</Title>
     <Authors>Jules Verhoeven</Authors>
@@ -9,7 +9,7 @@
     <PackageTags>C#, State, Machine, StateMachine, Proxy, Interface, ProxyInterface</PackageTags>
     <RepositoryType>git</RepositoryType>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
-	<Version>2.0.0</Version>
+	<Version>2.0.1</Version>
 	<PackageProjectUrl>https://github.com/JulesVerhoeven/TIM</PackageProjectUrl>
 	<PackageReadmeFile>ReadMe.md</PackageReadmeFile>
 	<PackageLicenseFile>License.txt</PackageLicenseFile>
